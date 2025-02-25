@@ -1,6 +1,7 @@
 job-board-client is the front-end client for my Nashville Software School final Capstone project, JobOpeningBoard.
 Built with React + Vite.
 
+-----------------------------------------------------------------------------------------------------------------------
 
 
 Installation instructions for local testing----------
