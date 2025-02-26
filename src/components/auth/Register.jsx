@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { register } from "../../managers/authManager";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import { getIndustries } from "../../managers/industryManager";
 
 export default function Register({ setLoggedInUser }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
+  const [location, setLocation] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [industries, setIndustries] = useState([]);
+  const [industryId, setIndustryId] = useState(0)
 
   const [passwordMismatch, setPasswordMismatch] = useState();
   const [registrationFailure, setRegistrationFailure] = useState(false);
@@ -24,12 +26,12 @@ export default function Register({ setLoggedInUser }) {
       setPasswordMismatch(true);
     } else {
       const newUser = {
-        firstName,
-        lastName,
+        name,
+        location,
         userName,
         email,
-        address,
         password,
+        industryId
       };
       register(newUser).then((user) => {
         if (user) {
@@ -42,28 +44,40 @@ export default function Register({ setLoggedInUser }) {
     }
   };
 
+  useEffect(() => {
+    getIndustries().then((data) => {
+        setIndustries(data)
+    })
+  }, [])
+
   return (
     <div className="container" style={{ maxWidth: "500px" }}>
       <h3>Sign Up</h3>
       <FormGroup>
-        <Label>First Name</Label>
+        <Label>Company Name</Label>
         <Input
           type="text"
-          value={firstName}
+          value={name}
           onChange={(e) => {
-            setFirstName(e.target.value);
+            setName(e.target.value);
           }}
         />
       </FormGroup>
       <FormGroup>
-        <Label>Last Name</Label>
+        <Label>Industry</Label>
         <Input
-          type="text"
-          value={lastName}
-          onChange={(e) => {
-            setLastName(e.target.value);
-          }}
-        />
+            id="industry"
+            type="select"
+            value={industryId}
+            onChange={(e) => setIndustryId(parseInt(e.target.value))}
+        >
+            <option value={0}>Select an Industry</option>
+            {industries.map((i) => (
+                <option key={i.id} value={i.id}>
+                    {i.name}
+                </option>
+            ))}
+        </Input>
       </FormGroup>
       <FormGroup>
         <Label>Email</Label>
@@ -86,12 +100,12 @@ export default function Register({ setLoggedInUser }) {
         />
       </FormGroup>
       <FormGroup>
-        <Label>Address</Label>
+        <Label>Location</Label>
         <Input
           type="text"
-          value={address}
+          value={location}
           onChange={(e) => {
-            setAddress(e.target.value);
+            setLocation(e.target.value);
           }}
         />
       </FormGroup>
