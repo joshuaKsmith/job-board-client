@@ -14,7 +14,13 @@ export const login = (email, password) => {
             return Promise.all([
                 tryGetLoggedInUser().catch(() => null),
                 tryGetLoggedInApplicant().catch(() => null)
-            ]).then(([employer, applicant]) => { return applicant || employer })
+            ]).then((data) => {
+                if (data[0].id) {
+                    return tryGetLoggedInUser();
+                } else {
+                    return tryGetLoggedInApplicant();
+                }
+            })
         }
     });
 };
