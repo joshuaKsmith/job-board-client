@@ -3,26 +3,31 @@ import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Welcome from "./welcome/Welcome";
+import RegisterApplicant from "./auth/RegisterApplicant";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
     return (
         <Routes>
             <Route path="/">
                 <Route
-                index
-                element={
-                    <AuthorizedRoute loggedInUser={loggedInUser}>
-                        <Welcome />
-                    </AuthorizedRoute>
-                }
+                    index
+                    element={
+                        <AuthorizedRoute loggedInUser={loggedInUser}>
+                            <Welcome />
+                        </AuthorizedRoute>
+                    }
                 />
                 <Route
-                path="login"
-                element={<Login setLoggedInUser={setLoggedInUser} />}
+                    path="login"
+                    element={<Login setLoggedInUser={setLoggedInUser} />}
                 />
                 <Route
-                path="register"
-                element={<Register setLoggedInUser={setLoggedInUser} />}
+                    path="register"
+                    element={<Register setLoggedInUser={setLoggedInUser} />}
+                />
+                <Route
+                    path="registerapplicant"
+                    element={<RegisterApplicant setLoggedInUser={setLoggedInUser} />}
                 />
             </Route>
             <Route path="*" element={<p>Whoops, nothing here...</p>} />
