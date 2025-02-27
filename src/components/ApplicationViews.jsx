@@ -4,6 +4,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Welcome from "./welcome/Welcome";
 import RegisterApplicant from "./auth/RegisterApplicant";
+import EmployerViews from "./EmployerViews";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
     return (
@@ -13,7 +14,11 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
                     index
                     element={
                         <AuthorizedRoute loggedInUser={loggedInUser}>
-                            <Welcome />
+                            {loggedInUser.location ? (
+                                <EmployerViews />
+                            ) : (
+                                <ApplicationViews />
+                            )}
                         </AuthorizedRoute>
                     }
                 />
