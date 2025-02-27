@@ -37,3 +37,15 @@ export const register = (userProfile) => {
     body: JSON.stringify(userProfile),
   }).then(() => tryGetLoggedInUser());
 };
+
+export const registerApplicant = (applicantProfile) => {
+    applicantProfile.password = btoa(applicantProfile.password);
+    return fetch(_apiUrl + "/registerapplicant", {
+        credentials: "same-origin",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(applicantProfile)
+    }).then(() => tryGetLoggedInUser());
+}
