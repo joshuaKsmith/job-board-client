@@ -30,34 +30,34 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                             {loggedInUser.location ? (<>
                                 {/* EMPLOYER */}
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">
+                                    <NavLink tag={RRNavLink} to="/jobs">
                                         <Button color="primary">My Jobs</Button>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">
+                                    <NavLink tag={RRNavLink} to="/jobs/new">
                                         <Button color="primary">New Job</Button>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">
+                                    <NavLink tag={RRNavLink} to="/company">
                                         <Button color="primary">Company Profile</Button>
                                     </NavLink>
                                 </NavItem>
                             </>) : (<>
                                 {/* APPLICANT */}
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">
+                                    <NavLink tag={RRNavLink} to="/jobs">
                                         <Button color="primary">Job Postings</Button>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">
+                                    <NavLink tag={RRNavLink} to="/applications">
                                         <Button color="primary">My Apps</Button>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={RRNavLink} to="/login">
+                                    <NavLink tag={RRNavLink} to="/profile">
                                         <Button color="primary">My Profile</Button>
                                     </NavLink>
                                 </NavItem>
