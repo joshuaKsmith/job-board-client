@@ -9,32 +9,26 @@ import ApplicantViews from "./ApplicantViews";
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
     return (
         <Routes>
-            <Route path="/">
-                <Route
-                    index
-                    element={
-                        <AuthorizedRoute loggedInUser={loggedInUser}>
-                            {loggedInUser?.location ? (
-                                <EmployerViews />
-                            ) : (
-                                <ApplicantViews />
-                            )}
-                        </AuthorizedRoute>
-                    }
-                />
-                <Route
-                    path="login"
-                    element={<Login setLoggedInUser={setLoggedInUser} />}
-                />
-                <Route
-                    path="register"
-                    element={<Register setLoggedInUser={setLoggedInUser} />}
-                />
-                <Route
-                    path="registerapplicant"
-                    element={<RegisterApplicant setLoggedInUser={setLoggedInUser} />}
-                />
-            </Route>
+            <Route path="login" element={<Login setLoggedInUser={setLoggedInUser} />} />
+            <Route path="register" element={<Register setLoggedInUser={setLoggedInUser} />} />
+            <Route path="registerapplicant" element={<RegisterApplicant setLoggedInUser={setLoggedInUser} />} />
+            
+            <Route path="/*" element={
+                <AuthorizedRoute loggedInUser={loggedInUser}>
+                    {loggedInUser?.location ? (
+                        <EmployerViews 
+                            loggedInUser={loggedInUser} 
+                            setLoggedInUser={setLoggedInUser} 
+                        />
+                    ) : (
+                        <ApplicantViews 
+                            loggedInUser={loggedInUser} 
+                            setLoggedInUser={setLoggedInUser} 
+                        />
+                    )}
+                </AuthorizedRoute>
+            } />
+            
             <Route path="*" element={<p>Whoops, nothing here...</p>} />
         </Routes>
     );

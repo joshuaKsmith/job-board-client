@@ -1,19 +1,28 @@
 const _apiUrl = "/api/auth";
 
 export const login = (email, password) => {
-  return fetch(_apiUrl + "/login", {
-    method: "POST",
-    credentials: "same-origin",
-    headers: {
-      Authorization: `Basic ${btoa(`${email}:${password}`)}`,
-    },
-  }).then((res) => {
-    if (res.status !== 200) {
-      return Promise.resolve(null);
-    } else {
-      return tryGetLoggedInUser();
-    }
-  });
+    return fetch(_apiUrl + "/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+            Authorization: `Basic ${btoa(`${email}:${password}`)}`,
+        },
+    }).then((res) => {
+        if (res.status !== 200) {
+            return Promise.resolve(null);
+        } else {
+            return Promise.all([
+                tryGetLoggedInUser().catch(() => null),
+                tryGetLoggedInApplicant().catch(() => null)
+            ]).then((data) => {
+                if (data[0].id) {
+                    return tryGetLoggedInUser();
+                } else {
+                    return tryGetLoggedInApplicant();
+                }
+            })
+        }
+    });
 };
 
 export const logout = () => {
@@ -24,6 +33,12 @@ export const tryGetLoggedInUser = () => {
   return fetch(_apiUrl + "/me").then((res) => {
     return res.status === 401 ? Promise.resolve(null) : res.json();
   });
+};
+
+export const tryGetLoggedInApplicant = () => {
+    return fetch(_apiUrl + "/applicant").then((res) => {
+        return res.status === 401 ? Promise.resolve(null) : res.json();
+    });
 };
 
 export const register = (userProfile) => {
@@ -47,5 +62,5 @@ export const registerApplicant = (applicantProfile) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(applicantProfile)
-    }).then(() => tryGetLoggedInUser());
+    }).then(() => tryGetLoggedInApplicant());
 }
