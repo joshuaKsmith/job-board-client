@@ -54,7 +54,10 @@ export default function Login({ setLoggedInUser }) {
         Login
       </Button>
       <p>
-        Not signed up? Register <Link to="/register">here</Link>
+        Not signed up? Register as an applicant <Link to="/registerapplicant">here</Link>
+      </p>
+      <p>
+        Register as an employer <Link to="/register">here</Link>
       </p>
     </div>
   );
