@@ -45,6 +45,12 @@ export const JobPostings = ({ loggedInUser }) => {
         return userApplications.some(app => app.job?.id === jobId);
     }
 
+    const formatDate = (dateString) => {
+        if (!dateString) return "N/A";
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+      };
+
     return (<>
         <Container>
             <h2>All Jobs</h2>
@@ -61,8 +67,8 @@ export const JobPostings = ({ loggedInUser }) => {
                                     <div>
                                         <div>{job.description}</div>
                                         <div>
-                                            <div>{job.postedDate}</div>
-                                            <div>{job.closesDate}</div>
+                                            <div>Posted On: {formatDate(job.postedDate)}</div>
+                                            <div>Closes On: {formatDate(job.closesDate)}</div>
                                         </div>
                                     </div>
                                     {!hasApplied(job.id) ? (
