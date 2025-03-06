@@ -15,3 +15,7 @@ export const cancelApplication = (jobId) => {
         method: "DELETE"
     })
 }
+
+export const getUserApplications = () => {
+    return fetch(_apiUrl + "/my").then((res) => res.json());
+}
