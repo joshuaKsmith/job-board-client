@@ -9,7 +9,6 @@ const cardStyle = {
 };
 
 export const EditJob = ({ loggedInUser }) => {
-
   const [job, setJob] = useState(null);
   const [formData, setFormData] = useState({
     description: "",
@@ -19,7 +18,6 @@ export const EditJob = ({ loggedInUser }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const { id: jobId } = useParams();
-  console.log(jobId)
 
   useEffect(() => {
     if (jobId) {
