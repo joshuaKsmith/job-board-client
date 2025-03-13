@@ -1,4 +1,4 @@
-const _apiUrl = "api/application";
+const _apiUrl = "/api/application";
 
 export const getApplicationsByJobId = (jobId) => {
     return fetch(_apiUrl + "/" + jobId).then((res) => res.json());
