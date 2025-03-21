@@ -58,7 +58,7 @@ export const JobApplications = ({ loggedInUser }) => {
                     <Col md={6} key={app.applicant?.id} className="mb-4">
                         <Card style={cardBodyStyle}>
                             <CardTitle tag="h5">{app.applicant?.firstName} {app.applicant?.lastName}</CardTitle>
-                            <div>APPLICANT EMAIL</div>
+                            <div>{app.applicant?.email}</div>
                         </Card>
                     </Col>
                 ))}
